@@ -14,6 +14,11 @@ export const useFilmStore = defineStore('film', ()=>{
         category:null,
         country:null,
     })
+    const totalFilms = ref(0)
+    const currentPage=ref(1)
+    const totalPages=computed(()=>{
+        return Math.ceil(totalFilms.value/params.value.size)
+    })
 
     const addCategoryToParams= (category) =>{
         params.value.category=category
@@ -31,10 +36,12 @@ export const useFilmStore = defineStore('film', ()=>{
 
     const fetchFilms = async () => {
         isLoading.value=true;
+        params.value.page=currentPage.value
         const res = await api.get('/films', {
             params: params.value,
         });
         films.value = res.data.films;
+        totalFilms.value=res.data.total
         isLoading.value=false;
     }
     fetchFilms()
@@ -45,5 +52,7 @@ export const useFilmStore = defineStore('film', ()=>{
         addCategoryToParams,
         addCountryToParams,
         fetchFilms,
+        totalPages,
+        currentPage,
     }
 });
