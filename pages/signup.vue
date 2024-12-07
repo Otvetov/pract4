@@ -13,6 +13,7 @@
    if (fio.value
        && email.value
        && password.value
+       && birthday.value
        && gender.value){
      try{
        await authStore.signup({

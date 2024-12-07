@@ -58,11 +58,11 @@ const  goto=(page: number)=>{
   <div v-if="!filmStore.isLoading" class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col" v-for="film in filmStore.films" :key="film.id">
       <div class="card h-100">
-        <img v-if="film.link_img" :src="film.link_img" class="card-img-top" alt="...">
-        <img v-else src="https://cdn1.ozone.ru/s3/multimedia-i/6838746030.jpg" class="card-img-top" alt="...">
+        <img v-if="film.link_img" :src="film.link_img" class="img-thumbnail" alt="tor" style="height: 500px;">
+        <img v-else src="https://cdn1.ozone.ru/s3/multimedia-i/6838746030.jpg" class="card-img-top" alt="tor" style="height: 500px;">
         <div class="card-body">
           <h5 class="card-title">{{film.name}}</h5>
-          <p class="card-text">{{film.ratingAvg}}</p>
+          <p class="card-text">{{film.ratingAvg}}★</p>
           <p class="card-text">{{film.duration}} min.</p>
           <p class="card-text"></p>
           <template v-for="category in film.categories" :key="category.id">
@@ -70,7 +70,7 @@ const  goto=(page: number)=>{
           </template>
         </div>
         <div class="cart-footer">
-          <button class="btn btn-outline-primary mt-3 " type="submit">смотреть</button>
+          <button @click="$router.push('/film/'+film.id)" class="btn btn-outline-primary mt-3 " type="submit">смотреть</button>
         </div>
       </div>
     </div>
